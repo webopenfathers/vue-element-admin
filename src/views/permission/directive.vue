@@ -1,13 +1,18 @@
 <template>
   <div class="app-container">
     <switch-roles @change="handleRolesChange" />
-    <div :key="key" style="margin-top:30px;">
+    <div :key="key" style="margin-top: 30px">
       <div>
         <span v-permission="['admin']" class="permission-alert">
           Only
-          <el-tag class="permission-tag" size="small">admin</el-tag> can see this
+          <el-tag class="permission-tag" size="small">admin</el-tag> can see
+          this
         </span>
-        <el-tag v-permission="['admin']" class="permission-sourceCode" type="info">
+        <el-tag
+          v-permission="['admin']"
+          class="permission-sourceCode"
+          type="info"
+        >
           v-permission="['admin']"
         </el-tag>
       </div>
@@ -15,32 +20,46 @@
       <div>
         <span v-permission="['editor']" class="permission-alert">
           Only
-          <el-tag class="permission-tag" size="small">editor</el-tag> can see this
+          <el-tag class="permission-tag" size="small">editor</el-tag> cansee
+          this
         </span>
-        <el-tag v-permission="['editor']" class="permission-sourceCode" type="info">
+        <el-tag
+          v-permission="['editor']"
+          class="permission-sourceCode"
+          type="info"
+        >
           v-permission="['editor']"
         </el-tag>
       </div>
 
       <div>
-        <span v-permission="['admin','editor']" class="permission-alert">
+        <span v-permission="['admin', 'editor']" class="permission-alert">
           Both
           <el-tag class="permission-tag" size="small">admin</el-tag> and
-          <el-tag class="permission-tag" size="small">editor</el-tag> can see this
+          <el-tag class="permission-tag" size="small">editor</el-tag> can see
+          this
         </span>
-        <el-tag v-permission="['admin','editor']" class="permission-sourceCode" type="info">
+        <el-tag
+          v-permission="['admin', 'editor']"
+          class="permission-sourceCode"
+          type="info"
+        >
           v-permission="['admin','editor']"
         </el-tag>
       </div>
+
+      <div v-permission="['admin']">张博闻admin</div>
+      <div v-permission="['editor']">张博闻editor</div>
     </div>
 
-    <div :key="'checkPermission'+key" style="margin-top:60px;">
+    <div :key="'checkPermission' + key" style="margin-top: 60px">
       <aside>
-        {{ $t('permission.tips') }}
-        <br> e.g.
+        {{ $t("permission.tips") }}
+        <br />
+        e.g.
       </aside>
 
-      <el-tabs type="border-card" style="width:550px;">
+      <el-tabs type="border-card" style="width: 550px">
         <el-tab-pane v-if="checkPermission(['admin'])" label="Admin">
           Admin can see this
           <el-tag class="permission-sourceCode" type="info">
@@ -55,7 +74,10 @@
           </el-tag>
         </el-tab-pane>
 
-        <el-tab-pane v-if="checkPermission(['admin','editor'])" label="Admin-OR-Editor">
+        <el-tab-pane
+          v-if="checkPermission(['admin', 'editor'])"
+          label="Admin-OR-Editor"
+        >
           Both admin or editor can see this
           <el-tag class="permission-sourceCode" type="info">
             v-if="checkPermission(['admin','editor'])"
@@ -67,26 +89,24 @@
 </template>
 
 <script>
-import permission from '@/directive/permission/index.js' // 权限判断指令
-import checkPermission from '@/utils/permission' // 权限判断函数
-import SwitchRoles from './components/SwitchRoles'
+import checkPermission from "@/utils/permission"; // 权限判断函数
+import SwitchRoles from "./components/SwitchRoles";
 
 export default {
-  name: 'DirectivePermission',
+  name: "DirectivePermission",
   components: { SwitchRoles },
-  directives: { permission },
   data() {
     return {
-      key: 1 // 为了能每次切换权限的时候重新初始化指令
-    }
+      key: 1, // 为了能每次切换权限的时候重新初始化指令
+    };
   },
   methods: {
     checkPermission,
     handleRolesChange() {
-      this.key++
-    }
-  }
-}
+      this.key++;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -108,4 +128,3 @@ export default {
   }
 }
 </style>
-
